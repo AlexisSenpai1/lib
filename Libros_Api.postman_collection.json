@@ -1,0 +1,984 @@
+{
+	"info": {
+		"_postman_id": "846ab9b0-2b8e-42b3-95dc-b05714b39240",
+		"name": "Libros_Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31181475",
+		"_collection_link": "https://senpai-team-5955.postman.co/workspace/senpai-team-Workspace~ffe6426c-63d9-4d18-8e1b-ce0a39536860/collection/31181475-846ab9b0-2b8e-42b3-95dc-b05714b39240?action=share&source=collection_link&creator=31181475"
+	},
+	"item": [
+		{
+			"name": "Obtener  Status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body status ok\", function (){\r",
+							"pm.expect (pm.response.text()).to.include (\"OK\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body status Ko\", function (){\r",
+							"pm.expect (pm.response.text()).to.include (\"KO\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url_Base}}{{estado}}",
+					"host": [
+						"{{Url_Base}}{{estado}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener  Status errado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// validar codigo de respuesta 404\r",
+							"pm.test(\"el codigo de respuesta es 404\", function (){\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"// validar codigo de respuesta 405\r",
+							"pm.test(\"el codigo de respuesta es 405\", function (){\r",
+							"    pm.response.to.have.status(405);\r",
+							"});\r",
+							"pm.test(\"Body status error \", function (){\r",
+							"pm.expect (pm.response.text()).to.include (\"\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url_Base}}{{estadoe}}",
+					"host": [
+						"{{Url_Base}}{{estadoe}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lista de libros",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"el codigo de respuesta es 200\", function (){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// que el id del libro se igual a 2\r",
+							"pm.test(\"el id es 2\", function (){\r",
+							"    var jsondata = pm.response.json();\r",
+							"    pm.expect(jsondata[0].id).to.eql(2);\r",
+							"});\r",
+							"pm.test(\"el tiempo de respuesta es inferior a  150 ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(150);\r",
+							"});\r",
+							"\r",
+							"//validar que este el id 5 este disponible\r",
+							"pm.test(\"validar id 5\", ()=> {\r",
+							"   var jsondata = pm.response.json();\r",
+							"   pm.expect(jsondata[0].available).to.be.true;\r",
+							"   console.log(jsondata);\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Url_Base}}{{libros}}",
+					"host": [
+						"{{Url_Base}}{{libros}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lista de libros err",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"el codigo de respuesta es 404\", function (){\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"// que el id del libro se igual a 2\r",
+							"pm.test(\"el id es 2\", function (){\r",
+							"    var jsondata = pm.response.json();\r",
+							"    pm.expect(jsondata[0].id).to.eql(2);\r",
+							"});\r",
+							"pm.test(\"el tiempo de respuesta es inferior a  150 ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(150);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Url_Base}}{{libros}}/90",
+					"host": [
+						"{{Url_Base}}{{libros}}"
+					],
+					"path": [
+						"90"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Otener un libro",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//1.el nombre del libro conicide con el del autor \r",
+							"pm.test(\"Viscount Who Loved Me\", function (){\r",
+							"    var jsondata = pm.response.json();\r",
+							"    var nombrelibro = jsondata.name;\r",
+							"    var author = jsondata.author;\r",
+							"    var coincide = nombrelibro.includes(author);\r",
+							"    pm.expect(coincide).to.be.true;\r",
+							"});\r",
+							"\r",
+							"//2.el nombre del libro no conicide con el del autor \r",
+							"pm.test(\"Viscount Who Loved Me\", function (){\r",
+							"    var jsondata = pm.response.json();\r",
+							"    var nombrelibro = jsondata.name;\r",
+							"    var author = jsondata.author;\r",
+							"    var coincide = nombrelibro.includes(author);\r",
+							"    pm.expect(coincide).to.be.false;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// validar codigo de respuesta 405\r",
+							"pm.test(\"el codigo de respuesta es 405\", function (){\r",
+							"    pm.response.to.have.status(405);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"el tiempo de respuesta es inferior a  150 ms\", function () {\r",
+							"pm.expect(pm.response.responseTime).to.be.below(150);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Url_Base}}{{obtener un libro 2}}",
+					"host": [
+						"{{Url_Base}}{{obtener un libro 2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Otener un libro id no exitoso",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//1.el nombre del libro conicide con el del autor \r",
+							"pm.test(\"Viscount Who Loved Me\", function (){\r",
+							"    var jsondata = pm.response.json();\r",
+							"    var nombrelibro = jsondata.name;\r",
+							"    var author = jsondata.author;\r",
+							"    var coincide = nombrelibro.includes(author);\r",
+							"    pm.expect(coincide).to.be.true;\r",
+							"});\r",
+							"\r",
+							"//2.el nombre del libro no conicide con el del autor \r",
+							"pm.test(\"Viscount Who Loved Me - Name does not match author\", function (){\r",
+							"    var jsondata = pm.response.json();\r",
+							"    var nombrelibro = jsondata.name;\r",
+							"    var author = jsondata.author;\r",
+							"    var coincide = nombrelibro.includes(author);\r",
+							"    pm.expect(coincide).to.be.false;\r",
+							"});\r",
+							"\r",
+							"// validar codigo de respuesta 404\r",
+							"pm.test(\"el codigo de respuesta es 404\", function (){\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"el tiempo de respuesta esta dentro del rango aceptable\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"clientName\":\"Postman\",\r\n   \"clientEmail\":\"pepito@example.com\"\r\n} ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Url_Base}}{{obtener libro ko}}",
+					"host": [
+						"{{Url_Base}}{{obtener libro ko}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Enviar pedido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test (\"validar que la orden se haya creado correctamente \", function () {\r",
+							"  var jasondata = pm.response.json();\r",
+							"\r",
+							"  // verificar que la respuesta contiene los campos esperados\r",
+							"  pm.expect(jasondata).to.have.property(\"orderId\");\r",
+							"  pm.expect(jasondata).to.have.property(\"bookId\",1);\r",
+							"  pm.expect(jasondata).to.have.property(\"orderId\",\"camila\");\r",
+							"\r",
+							"  // verificar que los valores son correctos\r",
+							"  //pm.expect(jasondata).to.equal(AfWsGzhnoUeUtLZIOLkFU);\r",
+							"  //pm.expect(jasondata).to.equal(camila);\r",
+							"});\r",
+							"\r",
+							"//validar que el created sea True\r",
+							"pm.test(\"validar created sea verader\", () => {\r",
+							"   var jsondata = pm.response.json();\r",
+							"   pm.expect(jsondata.created).equals(true);\r",
+							"   \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n  \"bookId\": 1,\r\n  \"customerName\": \"Marcela\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Url_Base}}{{pedido}}",
+					"host": [
+						"{{Url_Base}}{{pedido}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Enviar pedido id errado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"el codigo de respuesta es 240\", function (){\r",
+							"  pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"//validar que el error sea invalid\r",
+							"pm.test(\"validar error sea invalid\", () => {\r",
+							"   var jsondata = pm.response.json();\r",
+							"   pm.expect(jsondata.error).equals(\"Invalid or missing bookId.\");\r",
+							"   \r",
+							"});\r",
+							"\r",
+							"//validar que el error sea invalid\r",
+							"pm.test(\"validar error no sea invalid\", () => {\r",
+							"   var jsondata = pm.response.json();\r",
+							"   pm.expect(jsondata.error).equals(\"true\");\r",
+							"   \r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n  \"bookId\": 7,\r\n  \"customerName\": \"camila\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Url_Base}}{{pedido}}",
+					"host": [
+						"{{Url_Base}}{{pedido}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Recibir todos los pedidos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"el codigo de respuesta es 200\", function (){\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"//validar un id\r",
+							"pm.test(\"validar id \", () => {\r",
+							"   var jsondata = pm.response.json(); // Defined 'jsondata' variable\r",
+							"   var pedido = jsondata.find (x => x.bookId == 1); // Changed 'data' to 'jsondata'\r",
+							"   pm.expect(pedido.id.includes(\"21UV5yOkYtjfyP8SrWGTr\")); // Added assertion method\r",
+							"   pm.expect(pedido.customerName).to.equal(\"marisol\"); // Changed 'equals' to 'to.equal'\r",
+							"});\r",
+							"\r",
+							"//validar un id errado\r",
+							"pm.test(\"validar id errado\", () => { // Renamed the test to avoid duplicate name\r",
+							"   var jsondata = pm.response.json();\r",
+							"   pm.expect(jsondata[0].id).to.equal('4F24TsgSHg6hhy'); // Changed the assertion to access the correct array index\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url_Base}}{{pedido}}",
+					"host": [
+						"{{Url_Base}}{{pedido}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Recibir todos los pedidos errado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//validar un id errado\r",
+							"pm.test(\"Validate incorrect id\", () => { \r",
+							"   var jsondata = pm.response.json();\r",
+							"   pm.expect(jsondata.error).to.equal(''); // Changed the assertion to validate the 'error' property\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url_Base}}{{pedido errado}}",
+					"host": [
+						"{{Url_Base}}{{pedido errado}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recibir un pedido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Fixed syntax error and added proper assertions\r",
+							"pm.test(\"validar id \", () => {\r",
+							"   var jsondata = pm.response.json(); // Defined 'jsondata' variable\r",
+							"   var libro = jsondata.find (x => x.bookId == 1); // Changed 'data' to 'jsondata'\r",
+							"   pm.expect(libro.id.includes(\"4F24TsgSHgCcWj8JLFvtR\"))\r",
+							"   pm.expect(libro.customerName).to.equal(\"John\");\r",
+							"});\r",
+							"\r",
+							"//validar customer john\r",
+							"pm.test(\"validar customername es John\", () => {\r",
+							"   var jsondata = pm.response.json();\r",
+							"   pm.expect(jsondata.customerName).equals(\"John\");\r",
+							"   });\r",
+							"\r",
+							"   //validar customer errado\r",
+							"pm.test(\"validar customername errado\", () => {\r",
+							"   var jsondata = pm.response.json();\r",
+							"   pm.expect(jsondata.customerName).equals(\"Marisol\");\r",
+							"   });"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Url_Base}}{{recibir pedido}}",
+					"host": [
+						"{{Url_Base}}{{recibir pedido}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar un pedido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body status vacio \", function (){\r",
+							"pm.expect (pm.response.text()).to.include (\"\");\r",
+							"});\r",
+							"\r",
+							"// validar codigo de respuesta 204\r",
+							"pm.test(\"el codigo de respuesta es 204\", function (){\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"// validar codigo de respuesta es 205\r",
+							"pm.test(\"el codigo de respuesta es 205\", function (){\r",
+							"    pm.response.to.have.status(205);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"el tiempo de respuesta es inferior a  150 ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(150);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n  \"customerName\": \"mando\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Url_Base}}{{pedido2}}6hLFST8O1SYQZRDnx3sKI",
+					"host": [
+						"{{Url_Base}}{{pedido2}}6hLFST8O1SYQZRDnx3sKI"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar un pedido errado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body status error \", function (){\r",
+							"pm.expect (pm.response.text()).to.include (\"No\");\r",
+							"});\r",
+							"\r",
+							"// validar codigo de respuesta 404\r",
+							"pm.test(\"el codigo de respuesta es 204\", function (){\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"// validar codigo de respuesta es 405\r",
+							"pm.test(\"el codigo de respuesta es 205\", function (){\r",
+							"    pm.response.to.have.status(205);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n  \"customerName\": \"marisol\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Url_Base}}{{pedido2}}vED3xC7CUfC4GhO1rLD-u",
+					"host": [
+						"{{Url_Base}}{{pedido2}}vED3xC7CUfC4GhO1rLD-u"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "eliminar un pedido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body status error \", function (){\r",
+							"pm.expect (pm.response.text()).to.include (\"No\");\r",
+							"});\r",
+							"\r",
+							"// validar codigo de respuesta 404\r",
+							"pm.test(\"el codigo de respuesta es 204\", function (){\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"// validar codigo de respuesta es 405\r",
+							"pm.test(\"el codigo de respuesta es 205\", function (){\r",
+							"    pm.response.to.have.status(205);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"el tiempo de respuesta es inferior a  150 ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(150);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{Url_Base}}{{pedido2}}EtYZ4nEp9Kw2hrhA-znQ",
+					"host": [
+						"{{Url_Base}}{{pedido2}}EtYZ4nEp9Kw2hrhA-znQ"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "eliminar un pedido errado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body status error \", function (){\r",
+							"pm.expect (pm.response.text()).to.include (\"No\");\r",
+							"});\r",
+							"\r",
+							"// validar codigo de respuesta 404\r",
+							"pm.test(\"el codigo de respuesta es 204\", function (){\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"// validar codigo de respuesta es 405\r",
+							"pm.test(\"el codigo de respuesta es 205\", function (){\r",
+							"    pm.response.to.have.status(205);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Url_Base}}{{pedido2}}XkKC-GfOt7q55T6ekmhP99",
+					"host": [
+						"{{Url_Base}}{{pedido2}}XkKC-GfOt7q55T6ekmhP99"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "APi autenticacion",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Fixed test for validating access token\r",
+							"pm.test(\"validar accessToken\", () => {\r",
+							"   var jsondata = pm.response.json();\r",
+							"   pm.expect(jsondata.error).to.equal(\"\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"el tiempo de respuesta es inferior a  150 ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(150);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"clientName\":\"Postman3\",\r\n   \"clientEmail\":\"andrees@examplee.com\"\r\n} ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Url_Base}}{{autenticacion}}",
+					"host": [
+						"{{Url_Base}}{{autenticacion}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "APi autenticacion errada",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body status error \", function (){\r",
+							"pm.expect (pm.response.text()).to.include (\"Invalid\");\r",
+							"});\r",
+							"\r",
+							"// validar codigo de respuesta 409\r",
+							"pm.test(\"el codigo de respuesta es 409\", function (){\r",
+							"    pm.response.to.have.status(409);\r",
+							"});\r",
+							"\r",
+							"// validar codigo de respuesta es 410\r",
+							"pm.test(\"el codigo de respuesta es 410\", function (){\r",
+							"    pm.response.to.have.status(205);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"clientName\":\"Postman\",\r\n   \"clientEmail\":\"camilo@example.\"\r\n} ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Url_Base}}{{autenticacion}}/",
+					"host": [
+						"{{Url_Base}}{{autenticacion}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "obtener libro ko",
+			"value": "/orders/7"
+		},
+		{
+			"key": "recibir pedido",
+			"value": "/orders/4F24TsgSHgCcWj8JLFvtR"
+		}
+	]
+}
